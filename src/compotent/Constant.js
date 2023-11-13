@@ -1,4 +1,4 @@
-export const BaseUrlApi = 'http://localhost/buy_tech/api/';
+export const BaseUrlApi = 'http://localhost/BuyTech_Backend/api/';
 
 
 export const Products1Url = BaseUrlApi + 'Products/1';
