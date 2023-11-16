@@ -9,7 +9,7 @@ export default function Order() {
 
   const show_order = async () =>{
     await axios.get(Constant.ShowOrderUrl + userId).then((response) =>{
-      setApi(response.data);
+      setApi(response.data.data);
     });
     console.log('mohit',userId);
   }

@@ -16,6 +16,7 @@ export default function Address() {
   const [city, setCity] = useState();
   const [pincode, setPincode] = useState();
   const [model_name, setModel_name] = useState();
+  const [product_id, setProductId] = useState();
   const [quantity, setQuantity] = useState();
   const [totalprice, setPrice] = useState();
   const [image, setImage] = useState();
@@ -67,10 +68,12 @@ export default function Address() {
         setQuantity(response.data[i].quantity);
         setPrice(response.data[i].totalprice);
         setImage(response.data[i].image);
+        setProductId(response.data[i].product_id);
         console.log('mohit gohel',model_name)
         console.log('mohit gohel',quantity)
         console.log('mohit gohel',totalprice)
         console.log('mohit gohel',image)
+        console.log('mohit gohel',product_id)
       }
     });
     
@@ -85,6 +88,7 @@ export default function Address() {
       quantity: quantity,
       price: totalprice,
       payment_methods:payment_method,
+      product_userId:product_id,
     };
     console.log('mohitt...',data1);
     console.log('Rohitt...',data1.payment_methods);
@@ -99,6 +103,7 @@ export default function Address() {
       setPrice("");
       setImage(""); 
       setPayment_method(""); 
+      setProductId(""); 
     insert_order();
     });
   };
@@ -107,7 +112,7 @@ export default function Address() {
     show();
     show1();
     totalPrice();
-  });
+  },[]);
   return (
     <div>
       <header
