@@ -110,7 +110,7 @@ export default function Detail_Page() {
                                     <div class="">
                                         <div class="custom-block-icon-wrap  text-center">
                                             <a class="custom-block-image-wrap">
-                                                <img src={'http://localhost/buy_tech/public/images/product/' + image}  style={{ height:"370px" , width:"430px" }}
+                                                <img src={Constant.ImageUrl + image}  style={{ height:"370px" , width:"430px" }}
                                                     class="custom-block-image-product-info mx-auto"  multiple  alt="Plaese wait..."/>
                                             </a>
                                         </div>

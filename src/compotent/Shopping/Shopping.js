@@ -124,7 +124,7 @@ const Empty = (val) => {
                   <div class="custom-block-image-wrap">
                     <a>
                       <img
-                        src={'http://localhost/buy_tech/public/images/product/' + items.image}
+                        src={Constant.ImageUrl + items.image}
                         style={{ height: "350px", width: "350px" }}
                         class="custom-block-image img-fluid"
                         alt=""

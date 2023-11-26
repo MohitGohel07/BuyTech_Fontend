@@ -13,6 +13,7 @@ var userId = localStorage.getItem('userId');
 
 export default function Home() {
   const [api, setApi] = useState([]);
+  const [mohitt, setApiMohit] = useState([{}]);
   const [api2, setApi1] = useState([]);
   const [api3, setApi3] = useState([]);
   const [api4, setApi4] = useState([]);
@@ -22,11 +23,18 @@ export default function Home() {
   const [chargerCount, setChargerCount] = useState("");
   const [wishlistCount, setWishlistCount] = useState("");
   const navigate = useNavigate();
+  const [data, setData] = useState([]);
 
   const [image, setImage] = useState();
   const [model_name, setModel_name] = useState();
   const [price, setPrice] = useState();
 
+  const MohitUrl = async () => {
+    await axios.get(Constant.MohitUrl).then((response) => {
+      setApiMohit(response.data.data);
+    });
+    getlaptop();
+  };
   const show = async () => {
     await axios.get(Constant.Products1Url).then((response) => {
       setApi(response.data);
@@ -152,7 +160,8 @@ export default function Home() {
     });
   };
 
-  useEffect(() => {   
+  useEffect(() => {  
+    MohitUrl(); 
     show();
     topics();
     laptopCtr();
@@ -160,6 +169,13 @@ export default function Home() {
     chargerCtr();
     wishlist_count();
 
+    axios.get(Constant.MohitUrl)
+    .then(response => {
+      setData(response.data.data); // Assuming the data is structured as { success, data, message }
+    })
+    .catch(error => {
+      console.error('Error fetching data:', error);
+    });
   }, []);
 
   return (
@@ -283,23 +299,28 @@ export default function Home() {
           </section>
 
           <section class="trending-podcast-section section-padding">
+
+          
+      {data.map(category => (
+
             <div class="container">
-              <div class="row">
-                <div class="col-lg-12 col-12">
+              <div class="row" key={category.category_id}>
+                <div class="col-lg-12 col-12 mt-5">
                   <div class="section-title-wrap mb-5">
-                    <h4 class="section-title">Trending Mobile's</h4>
+                    <h4 class="section-title">Trending {category.category_id}'s</h4>
                   </div>
                 </div>
 
-                {api.map((items, i) => (
+                {category.products.map(product => (
                   <div class="col-lg-4 col-12 mb-4 mb-lg-0 mt-3">
                     <div class="custom-block custom-block-full">
                       <div class="custom-block-image-wrap">
+                    
                         <a>
                           <img
                             src={
-                              "http://localhost/buy_tech/public/images/product/" +
-                              items.image
+                              Constant.ImageUrl +
+                              product.image
                             }
                             style={{ height: "350px", width: "350px" }}
                             class="custom-block-image img-fluid"
@@ -311,32 +332,32 @@ export default function Home() {
                       <div class="custom-block-info">
                         <h5 class="mb-2">
                           <Link
-                            to={"shopping/detailpage/" + items.id}
+                            to={"shopping/detailpage/" + product.id}
                             onClick={goToTop2}
                           >
-                            {items.model_name}
+                            {product.model_name}
                           </Link>
                         </h5>
 
                         <div class="profile-block d-flex">
                           <p>
-                            {items.brand}
+                            {product.brand}
                             <img
                               src={verified}
                               class="verified-image img-fluid ms-1"
                               alt=""
                             />
-                            <strong>Price : ₹{items.price}</strong>
+                            <strong>Price : ₹{product.price}</strong>
                           </p>
                         </div>
 
-                        <p class="mb-0">{items.title}</p>
+                        <p class="mb-0">{product.title}</p>
 
                         <div class="custom-block-bottom d-flex justify-content-between mt-3">
                         {userId ?    
                          <Link
                             class="btn custom-btn"
-                            onClick={() => addtocart(items)}
+                            onClick={() => addtocart(product)}
                           >
                             Add to Cart
                           </Link>
@@ -357,7 +378,7 @@ export default function Home() {
                       <Link
                           href="#"
                           class="badge ms-auto"
-                          onClick={() => wishlist(items)}
+                          onClick={() => wishlist(product)}
                         >
                           <i class="bi-heart"></i>
                         </Link>
@@ -367,9 +388,10 @@ export default function Home() {
                 ))}
               </div>
             </div>
+            ))}
           </section>
 
-          <section class="trending-podcast-section section-padding">
+          {/* <section class="trending-podcast-section section-padding">
             <div class="container">
               <div class="row">
                 <div class="col-lg-12 col-12">
@@ -385,7 +407,7 @@ export default function Home() {
                         <a>
                           <img
                             src={
-                              "http://localhost/buy_tech/public/images/product/" +
+                              Constant.ImageUrl +
                               items.image
                             }
                             style={{ height: "350px", width: "350px" }}
@@ -470,7 +492,7 @@ export default function Home() {
                         <a>
                           <img
                             src={
-                              "http://localhost/buy_tech/public/images/product/" +
+                              Constant.ImageUrl +
                               items.image
                             }
                             style={{ height: "350px", width: "350px" }}
@@ -559,7 +581,7 @@ export default function Home() {
                           <a>
                             <img
                               src={
-                                "http://localhost/buy_tech/public/images/product/" +
+                                Constant.ImageUrl +
                                 items.image
                               }
                               style={{ height: "350px", width: "350px" }}
@@ -627,7 +649,7 @@ export default function Home() {
                 })}
               </div>
             </div>
-          </section>
+          </section> */}
         </main>
 
         <script src="../../assents/js/jquery.min.js"></script>

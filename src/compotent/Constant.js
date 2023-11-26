@@ -1,10 +1,13 @@
 export const BaseUrlApi = 'http://localhost/BuyTech_Backend/api/';
+export const BaseUrlImage = 'http://localhost/BuyTech_Backend/public/images/';
 
 
+export const ImageUrl = BaseUrlImage + 'product/';
 export const Products1Url = BaseUrlApi + 'Products/1';
 export const Products2Url = BaseUrlApi + 'Products/2';
 export const Products3Url = BaseUrlApi + 'Products/3';
 export const Products4Url = BaseUrlApi + 'Products/4';
+export const MohitUrl = BaseUrlApi + 'mohitt';
 
 export const Count1Url = BaseUrlApi + 'count/1';
 export const Count2Url = BaseUrlApi + 'count/2';
